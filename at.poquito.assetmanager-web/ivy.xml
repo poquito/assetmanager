@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+       
+    <info
+        organisation="at.poquito.assetmanager"
+        module="assetmanager-web"
+        status="integration"
+        revision="1.0.0"
+        >
+        <extends organisation="at.poquito.archetype" module="simple-jar-with-junit" revision="1.0+"/>
+	</info>
+
+	<publications>
+		<artifact name="assetmanager-web" type="war" conf="master" ext="war" />
+		<artifact name="assetmanager-web-sources" type="source" conf="sources" ext="jar"/>
+		<artifact name="assetmanager-web-javadoc" type="javadoc" conf="javadoc" ext="jar" />
+	</publications>
+	
+	<dependencies>
+		<dependency org="at.poquito.assetmanager" name="assetmanager-impl" rev="1.0.0+" conf="war-lib->master;compile,provided->@"/>
+		<dependency org="at.poquito.assetmanager" name="assetmanager-jaxrs-client" rev="1.0.0+" conf="war-lib->master;compile,provided->@"/>
+		<conflict manager="strict"/>
+	</dependencies>
+	
+	
+</ivy-module>

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Assetmanager-api
+Bundle-SymbolicName: at.poquito.assetmanager-api
+Bundle-Version: 1.0.0
+Export-Package: at.poquito.assetmanager,
+ at.poquito.assetmanager.processing,
+ at.poquito.assetmanager.util
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: at.poquito.assetmanager-api
+Export-Package: at.poquito.assetmanager,at.poquito.assetmanager.proces
+ sing,at.poquito.assetmanager.util
+Bundle-Name: Assetmanager-api
+Bundle-Version: 1.0.0
+Bundle-ManifestVersion: 2
+

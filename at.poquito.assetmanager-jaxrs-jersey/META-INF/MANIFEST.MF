@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Assetmanager-jaxrs-jersey
+Bundle-SymbolicName: at.poquito.assetmanager-jaxrs-jersey
+Bundle-Version: 1.0.0
+Export-Package: at.poquito.assetmanager.jaxrs.jersey
+Require-Bundle: at.poquito.assetmanager-api;bundle-version="1.0.0",
+ com.sun.jersey;bundle-version="1.17.0";resolution:=optional
+

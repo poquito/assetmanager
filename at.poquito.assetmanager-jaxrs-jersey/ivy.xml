@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+       
+    <info
+        organisation="at.poquito.assetmanager"
+        module="assetmanager-jaxrs-client"
+        status="integration"
+        revision="1.0.0"
+        >
+        <extends organisation="at.poquito.archetype" module="simple-jar-with-junit" revision="1.0+"/>
+	</info>
+	
+	<publications>
+		<artifact name="assetmanager-jaxrs-client" type="jar" conf="master" ext="jar"/>
+		<artifact name="assetmanager-jaxrs-client-sources" type="source" conf="sources" ext="jar"/>
+		<artifact name="assetmanager-jaxrs-client-javadoc" type="javadoc" conf="javadoc" ext="jar"/>
+	</publications>
+	
+	<dependencies defaultconfmapping="provided->default;test->*">
+		<dependency org="at.poquito.assetmanager" name="assetmanager-api" rev="1.0.0+" conf="compile->default"/>
+		<dependency org="com.sun.jersey" name="jersey-core" rev="1.11+" conf="provided->default" /> 
+		<dependency org="com.sun.jersey" name="jersey-client" rev="1.11+" conf="provided->default" /> 
+		<dependency org="com.sun.jersey.contribs" name="jersey-multipart" rev="1.11+" conf="provided->default" /> 
+		<dependency org="javax" name="javaee-web-api" rev="6.0" conf="provided->default" /> 
+	</dependencies>
+</ivy-module>

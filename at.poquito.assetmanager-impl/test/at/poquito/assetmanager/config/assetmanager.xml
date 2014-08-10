@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE assetmanager>
+<assetmanager>
+
+	<audit>at.mbox.mediaserver.MassetAudit</audit>
+
+	<repository id="default">
+		<path>/</path>
+		<dir>${user.home}/work/mediaserver</dir>
+		<readPermissions>*</readPermissions>
+		<writePermissions>*</writePermissions>
+	</repository>
+
+	<task>
+		<name>ResizeImage</name>
+		<class>at.poquito.processing.ResizeImage</class>
+		<param name="width" default="640" type="int" />
+		<param name="height" default="480" type="int" />
+	</task>
+
+
+</assetmanager>

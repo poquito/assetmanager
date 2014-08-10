@@ -1,0 +1,7 @@
+<root>
+  <facet id="jst.jaxrs">
+    <node name="libprov">
+      <attribute name="provider-id" value="oracle.eclipse.tools.glassfish.jaxrsLibraryproviderID"/>
+    </node>
+  </facet>
+</root>

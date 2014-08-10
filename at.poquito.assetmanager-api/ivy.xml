@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+       
+    <info
+        organisation="at.poquito.assetmanager"
+        module="assetmanager-api"
+        status="integration"
+        revision="1.0.0"
+        >
+        <extends organisation="at.poquito.archetype" module="simple-jar-with-junit" revision="1.0+"/>
+	</info>
+
+	<publications>
+		<artifact name="assetmanager-api" type="jar" conf="master" ext="jar"/>
+		<artifact name="assetmanager-api-sources" type="source" conf="sources" ext="jar"/>
+		<artifact name="assetmanager-api-javadoc" type="javadoc" conf="javadoc" ext="jar"/>
+	</publications>
+	
+</ivy-module>

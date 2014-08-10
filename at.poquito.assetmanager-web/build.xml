@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE project>
+<project name="assetmanager-web" default="install">
+	<import file="${pib.home}/profiles/war.ant" />
+
+	<property name="src.main.java" value="src" />
+	<property name="src.test.java" value="test" />
+	<property name="compile.target" value="1.7" />
+	<property name="encoding" value="utf-8" />
+</project>
