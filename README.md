@@ -8,4 +8,4 @@ web application to manage digital assets
 [Download Binaries](http://poquito.at/ivyrepo/release/at/poquito/assetmanager/)
 
 ## Tutorials (Deutsch)
-[Tutorial (Deutsch)](wiki/tutorial-de)
+[Tutorial (Deutsch)](https://github.com/poquito/assetmanager/wiki)
