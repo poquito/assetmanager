@@ -5,8 +5,8 @@
     <info
         organisation="at.poquito.assetmanager"
         module="assetmanager-jaxrs-client"
-        status="integration"
-        revision="1.0.0"
+        status="release"
+        revision="0.1.0"
         >
         <extends organisation="at.poquito.archetype" module="simple-jar-with-junit" revision="1.0+"/>
 	</info>
@@ -18,7 +18,7 @@
 	</publications>
 	
 	<dependencies defaultconfmapping="provided->default;test->*">
-		<dependency org="at.poquito.assetmanager" name="assetmanager-api" rev="1.0.0+" conf="compile->default"/>
+		<dependency org="at.poquito.assetmanager" name="assetmanager-api" rev="0.1.+" conf="compile->default"/>
 		<dependency org="com.sun.jersey" name="jersey-core" rev="1.11+" conf="provided->default" /> 
 		<dependency org="com.sun.jersey" name="jersey-client" rev="1.11+" conf="provided->default" /> 
 		<dependency org="com.sun.jersey.contribs" name="jersey-multipart" rev="1.11+" conf="provided->default" /> 

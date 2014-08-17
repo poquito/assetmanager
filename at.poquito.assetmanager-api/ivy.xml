@@ -5,8 +5,8 @@
     <info
         organisation="at.poquito.assetmanager"
         module="assetmanager-api"
-        status="integration"
-        revision="1.0.0"
+        status="release"
+        revision="0.1.0"
         >
         <extends organisation="at.poquito.archetype" module="simple-jar-with-junit" revision="1.0+"/>
 	</info>
