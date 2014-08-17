@@ -13,10 +13,10 @@ import at.poquito.assetmanager.AssetManagerException;
 import at.poquito.assetmanager.AssetPath;
 import at.poquito.assetmanager.AssetPathFilter;
 import at.poquito.assetmanager.AssetStore;
-import at.poquito.assetmanager.NotAuthorizedException;
-import at.poquito.assetmanager.Permissions;
 import at.poquito.assetmanager.log.Log;
 import at.poquito.assetmanager.log.LogFactory;
+import at.poquito.assetmanager.security.NotAuthorizedException;
+import at.poquito.assetmanager.security.Permissions;
 import at.poquito.assetmanager.util.CopyStream;
 
 public class Repository implements Comparable<Repository> {

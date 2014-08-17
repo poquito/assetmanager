@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response.Status;
 
 import at.poquito.assetmanager.AssetManagerException;
 import at.poquito.assetmanager.AssetNotFoundException;
-import at.poquito.assetmanager.NotAuthorizedException;
+import at.poquito.assetmanager.security.NotAuthorizedException;
 import at.poquito.assetmanager.util.IFunction;
 
 import com.sun.jersey.api.client.ClientResponse;

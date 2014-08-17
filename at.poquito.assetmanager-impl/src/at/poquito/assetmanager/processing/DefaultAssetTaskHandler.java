@@ -15,8 +15,8 @@ import at.poquito.assetmanager.AssetManagerException;
 import at.poquito.assetmanager.AssetPath;
 import at.poquito.assetmanager.AssetTask;
 import at.poquito.assetmanager.AssetTaskFactory;
-import at.poquito.assetmanager.NotAuthorizedException;
 import at.poquito.assetmanager.event.TaskExecuted;
+import at.poquito.assetmanager.security.NotAuthorizedException;
 
 @ApplicationScoped
 public class DefaultAssetTaskHandler implements AssetTaskFactory {

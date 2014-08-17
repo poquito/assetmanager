@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import at.poquito.assetmanager.AssetPath;
 import at.poquito.assetmanager.AssetTask;
+import at.poquito.assetmanager.it.tasks.HelloWorld;
 import at.poquito.assetmanager.jaxrs.jersey.JerseyTaskManager;
 import at.poquito.assetmanager.util.IOUtils;
 
@@ -30,6 +31,16 @@ public class ExecuteTaskIT {
 	private static File assetManagerDir;
 	private static JerseyTaskManager taskManager;
 
+	@Test
+	public void execute_by_classname() {
+		AssetTask task = taskManager.createTaskCall("tutorial.HelloWorld");
+		Properties properties=new Properties();
+		properties.setProperty("input", "hello world");
+		task.setProperties(properties);
+		String string = task.execute(String.class);
+		System.out.println(string);
+	}
+	
 	@Test
 	public void execute_to_upper_case_task_with_file_return_result_object() {
 		AssetManagerIT.createTestFile(new File(assetManagerDir, INPUT_FILE));

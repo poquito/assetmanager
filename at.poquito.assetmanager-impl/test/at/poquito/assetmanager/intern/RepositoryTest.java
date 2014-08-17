@@ -18,7 +18,7 @@ import org.mockito.Matchers;
 import at.poquito.assetmanager.AssetManagerContext;
 import at.poquito.assetmanager.AssetPath;
 import at.poquito.assetmanager.AssetStore;
-import at.poquito.assetmanager.Permissions;
+import at.poquito.assetmanager.security.Permissions;
 
 /**
  * @author mario rodler

@@ -1,6 +1,9 @@
 package at.poquito.assetmanager.intern;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,10 +11,12 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import at.poquito.assetmanager.AssetManager;
 import at.poquito.assetmanager.AssetManagerContext;
+import at.poquito.assetmanager.AssetManagerException;
 import at.poquito.assetmanager.AssetPath;
 import at.poquito.assetmanager.config.AssetManagerConfiguration;
 import at.poquito.assetmanager.config.RepositoryConfiguration;
@@ -23,6 +28,8 @@ import at.poquito.assetmanager.store.FileStore;
 public class AssetManagerFactory {
 
 	@Inject
+	private Instance<AssetManagerConfiguration> configurators;
+
 	private AssetManagerConfiguration configuration;
 
 	private List<Repository> repositories;
@@ -65,8 +72,28 @@ public class AssetManagerFactory {
 
 	@PostConstruct
 	private void initialize() {
+		configuration = loadConfiguration();
 		repositories = createRepositories();
 		logConfigurationInfo(log);
+	}
+
+	private AssetManagerConfiguration loadConfiguration() {
+		if (configurators.isUnsatisfied()) {
+			return AssetManagerConfiguration.readConfiguration(evaluateConfigurationURL());
+		}
+		return configurators.get();
+	}
+
+	private URL evaluateConfigurationURL() {
+		String configURL = System.getProperty("assetmanager.configURL");
+		if (configURL == null) {
+			return AssetManagerFactory.class.getResource("assetmanager.xml");
+		}
+		try {
+			return URI.create(configURL).toURL();
+		} catch (MalformedURLException e) {
+			throw new AssetManagerException("can't create assetmanager configuration from invalid URL", e);
+		}
 	}
 
 	Repository createRepository(RepositoryConfiguration repository) {

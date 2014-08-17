@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import at.poquito.assetmanager.Permissions;
+import at.poquito.assetmanager.security.Permissions;
 
 public class AssetManagerConfigurationTest {
 

@@ -5,9 +5,6 @@
         <dependent-module archiveName="at.poquito.assetmanager-jaxrs-jersey.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/at.poquito.assetmanager-jaxrs-jersey/at.poquito.assetmanager-jaxrs-jersey">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="at.poquito.assetmanager-impl.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/at.poquito.assetmanager-impl/at.poquito.assetmanager-impl">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="assetmanager"/>
         <property name="java-output-path" value="/at.poquito.assetmanager-web/build/classes"/>
     </wb-module>

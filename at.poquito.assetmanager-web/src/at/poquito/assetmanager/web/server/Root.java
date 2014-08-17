@@ -1,4 +1,4 @@
-package at.poquito.assetmanager.it.server;
+package at.poquito.assetmanager.web.server;
 
 import java.io.IOException;
 

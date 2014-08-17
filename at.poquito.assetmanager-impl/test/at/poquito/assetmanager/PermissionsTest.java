@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import at.poquito.assetmanager.AssetManagerContext;
+import at.poquito.assetmanager.security.Permissions;
 
 /**
  * @author mario rodler

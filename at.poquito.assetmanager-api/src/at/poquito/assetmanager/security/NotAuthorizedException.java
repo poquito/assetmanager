@@ -1,4 +1,6 @@
-package at.poquito.assetmanager;
+package at.poquito.assetmanager.security;
+
+import at.poquito.assetmanager.AssetManagerException;
 
 
 public class NotAuthorizedException extends AssetManagerException {

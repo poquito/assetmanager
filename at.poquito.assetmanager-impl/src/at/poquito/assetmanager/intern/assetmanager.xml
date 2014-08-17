@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE assetmanager>
+<assetmanager>
+
+	<repository id="default">
+		<path>/</path>
+		<dir>${user.home}/assetmanager</dir>
+		<readPermissions>*</readPermissions>
+		<writePermissions>*</writePermissions>
+	</repository>
+
+</assetmanager>

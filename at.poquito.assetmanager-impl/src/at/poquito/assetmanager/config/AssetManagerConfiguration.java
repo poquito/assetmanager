@@ -15,9 +15,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import at.poquito.assetmanager.Permissions;
 import at.poquito.assetmanager.log.Log;
 import at.poquito.assetmanager.log.LogFactory;
+import at.poquito.assetmanager.security.Permissions;
 
 @XmlRootElement(name = "assetmanager")
 @XmlAccessorType(XmlAccessType.FIELD)

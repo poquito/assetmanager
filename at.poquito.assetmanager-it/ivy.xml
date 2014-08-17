@@ -20,6 +20,7 @@
 	<dependencies>
 		<dependency org="at.poquito.assetmanager" name="assetmanager-impl" rev="1.0.0+" conf="war-lib->master;compile,provided->@"/>
 		<dependency org="at.poquito.assetmanager" name="assetmanager-jaxrs-client" rev="1.0.0+" conf="war-lib->master;compile,provided->@"/>
+		<dependency org="org.glassfish.extras" name="glassfish-embedded-web" rev="3.2+" conf="test->default"/>
 		<conflict manager="strict"/>
 	</dependencies>
 	

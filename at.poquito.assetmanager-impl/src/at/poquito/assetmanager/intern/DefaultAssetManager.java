@@ -12,9 +12,9 @@ import at.poquito.assetmanager.AssetManagerContext;
 import at.poquito.assetmanager.AssetManagerException;
 import at.poquito.assetmanager.AssetNotFoundException;
 import at.poquito.assetmanager.AssetPath;
-import at.poquito.assetmanager.NotAuthorizedException;
 import at.poquito.assetmanager.log.Log;
 import at.poquito.assetmanager.log.LogFactory;
+import at.poquito.assetmanager.security.NotAuthorizedException;
 
 public class DefaultAssetManager implements AssetManager {
 	private static final Log LOG = LogFactory.create(DefaultAssetManager.class);

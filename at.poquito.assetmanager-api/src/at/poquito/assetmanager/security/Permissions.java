@@ -1,10 +1,12 @@
 
-package at.poquito.assetmanager;
+package at.poquito.assetmanager.security;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import at.poquito.assetmanager.AssetManagerContext;
 
 /**
  * @author Mario Rodler
