@@ -1,5 +1,7 @@
 package at.poquito.assetmanager.intern;
 
+import java.security.Principal;
+
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
@@ -31,12 +33,16 @@ public class AssetManagerContextFactory {
 
 				@Override
 				public boolean hasPermission(String permission) {
-					return false;
+					return currentRequest.isUserInRole(permission);
 				}
 
 				@Override
 				public String currentUser() {
-					return UNAUTHENTICATED;
+					Principal principal = currentRequest.getUserPrincipal();
+					if(principal==null){
+						return UNAUTHENTICATED;
+					}
+					return principal.getName();
 				}
 			};
 		}
