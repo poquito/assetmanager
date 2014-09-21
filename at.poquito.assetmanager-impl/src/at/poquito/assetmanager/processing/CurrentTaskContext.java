@@ -1,5 +1,6 @@
 package at.poquito.assetmanager.processing;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
@@ -20,10 +21,9 @@ public class CurrentTaskContext {
 		current.set(null);
 	}
 	
-	@Produces
+	@Produces @RequestScoped
 	static TaskContext getCurrentTaskContext(){
 		TaskContext taskContext = current.get();
-		System.out.println("get current task context:" + taskContext);
 		return taskContext;
 	}
 
