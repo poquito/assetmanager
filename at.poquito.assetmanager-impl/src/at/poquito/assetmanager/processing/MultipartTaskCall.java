@@ -4,9 +4,12 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -38,7 +41,8 @@ public class MultipartTaskCall {
 	public Response execute() {
 		Iterator<BodyPart> iterator = multiPart.getBodyParts().iterator();
 		TaskCallParams params = iterator.next().getEntityAs(TaskCallParams.class);
-		AssetTask call = taskFactory.create(params.getTaskName());
+		String taskName = params.getTaskName();
+		AssetTask call = taskFactory.create(taskName);
 		call.setProperties(params.getProperties());
 		call.setCorrelationId(params.getCorrelationId());
 		call.setSource(params.getSource());
@@ -67,6 +71,12 @@ public class MultipartTaskCall {
 						.build();
 			}
 			ResponseBuilder builder = Response.ok(o);
+			return builder.build();
+		} catch (RuntimeException e) {
+			Logger log = Logger.getLogger(TaskManager.class.getName());
+			String msg = MessageFormat.format("execution of task {0} failed:{1}", taskName, e.getMessage());
+			log.log(Level.WARNING, msg, e);
+			ResponseBuilder builder = Response.serverError().entity(msg);
 			return builder.build();
 		} finally {
 			closeResources();
