@@ -38,6 +38,9 @@ public class JerseyTaskManager {
 			}
 			return response.getEntity(resultType);
 		}
+		if (response.hasEntity()) {
+			throw new AssetManagerException(response.getEntity(String.class));
+		}
 		throw new AssetManagerException("task execution failed");
 	}
 

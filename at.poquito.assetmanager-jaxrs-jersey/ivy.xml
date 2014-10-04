@@ -6,7 +6,7 @@
         organisation="at.poquito.assetmanager"
         module="assetmanager-jaxrs-client"
         status="release"
-        revision="0.1.0"
+        revision="0.1.1"
         >
         <extends organisation="at.poquito.archetype" module="simple-jar-with-junit" revision="1.0+"/>
 	</info>
