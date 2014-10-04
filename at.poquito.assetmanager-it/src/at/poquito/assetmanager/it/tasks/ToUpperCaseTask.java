@@ -1,5 +1,6 @@
 package at.poquito.assetmanager.it.tasks;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -31,7 +32,10 @@ public class ToUpperCaseTask implements Task {
 			return result;
 		}
 
-		OutputStream os = IOUtils.createOutputStream(destinationAsset.getFile());
+		File file = destinationAsset.getFile();
+		System.out.println(file);
+		//file.getParentFile().mkdirs();
+		OutputStream os = IOUtils.createOutputStream(file);
 		try {
 			os.write(result.getBytes());
 		} catch (IOException e) {

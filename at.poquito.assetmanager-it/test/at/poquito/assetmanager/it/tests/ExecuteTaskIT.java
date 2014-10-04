@@ -23,7 +23,8 @@ import at.poquito.assetmanager.util.IOUtils;
  */
 public class ExecuteTaskIT {
 	private static final String INPUT_FILE = "input.txt";
-	private static final String OUTPUT_FILE = "output1.txt";
+	private static final String INPUT_IN_SUBDIR_FILE = "subdir/input.txt";
+	private static final String OUTPUT_FILE = "sample/output1.txt";
 	private static final String PROPERTY_INPUT = "this is a test";
 	private static final String PROPERTY_RESULT = "THIS IS A TEST";
 	private static final String TASK_NAME = "IT:ToUpperCase";
@@ -38,7 +39,6 @@ public class ExecuteTaskIT {
 		properties.setProperty("input", "hello world");
 		task.setProperties(properties);
 		String string = task.execute(String.class);
-		System.out.println(string);
 	}
 	
 	@Test
@@ -52,9 +52,9 @@ public class ExecuteTaskIT {
 
 	@Test
 	public void execute_to_upper_case_task_with_file_write_to_repository() {
-		AssetManagerIT.createTestFile(new File(assetManagerDir, INPUT_FILE));
+		AssetManagerIT.createTestFile(new File(assetManagerDir, INPUT_IN_SUBDIR_FILE));
 		AssetTask task = taskManager.createTaskCall(TASK_NAME);
-		task.setSource(new AssetPath(INPUT_FILE));
+		task.setSource(new AssetPath(INPUT_IN_SUBDIR_FILE));
 		task.setDestination(new AssetPath(OUTPUT_FILE));
 		task.execute();
 		File resultFile = new File(assetManagerDir, OUTPUT_FILE);

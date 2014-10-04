@@ -51,6 +51,7 @@ public class AssetManagerIT {
 
 	public static void createTestFile(File destination) {
 		File file = getTestFile();
+		destination.getParentFile().mkdirs();
 		InputStream inputStream = IOUtils.createInputStream(file);
 		try {
 			new CopyStream(inputStream).toFile(destination);
