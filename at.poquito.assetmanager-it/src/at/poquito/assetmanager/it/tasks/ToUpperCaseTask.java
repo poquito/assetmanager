@@ -33,8 +33,7 @@ public class ToUpperCaseTask implements Task {
 		}
 
 		File file = destinationAsset.getFile();
-		System.out.println(file);
-		//file.getParentFile().mkdirs();
+		file.getParentFile().mkdirs();
 		OutputStream os = IOUtils.createOutputStream(file);
 		try {
 			os.write(result.getBytes());
