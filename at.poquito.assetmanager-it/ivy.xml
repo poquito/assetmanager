@@ -6,7 +6,7 @@
         organisation="at.poquito.assetmanager"
         module="assetmanager-it"
         status="integration"
-        revision="1.0.0"
+        revision="1.1.0"
         >
         <extends organisation="at.poquito.archetype" module="simple-jar-with-junit" revision="1.0+"/>
 	</info>
@@ -18,7 +18,7 @@
 	</publications>
 	
 	<dependencies>
-		<dependency org="at.poquito.assetmanager" name="assetmanager-impl" rev="0.1.+" conf="war-lib->master;compile,provided->@"/>
+		<dependency org="at.poquito.assetmanager" name="assetmanager-impl" rev="0.2.+" conf="war-lib->master;compile,provided->@"/>
 		<dependency org="at.poquito.assetmanager" name="assetmanager-jaxrs-client" rev="0.1.+" conf="war-lib->master;compile,provided->@"/>
 		<dependency org="org.glassfish.extras" name="glassfish-embedded-web" rev="3.2+" conf="test->default"/>
 		<conflict manager="strict"/>

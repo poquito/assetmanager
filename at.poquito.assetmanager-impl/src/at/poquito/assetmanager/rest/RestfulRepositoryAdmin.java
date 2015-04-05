@@ -1,22 +1,21 @@
 package at.poquito.assetmanager.rest;
 
-import java.util.Collections;
-import java.util.List;
-
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-import at.poquito.assetmanager.AssetRepository;
 import at.poquito.assetmanager.AssetRepositoryIndex;
+import at.poquito.assetmanager.config.AssetManagerConfiguration;
 
 
 public class RestfulRepositoryAdmin {
+	
+	@Inject
+	private AssetManagerConfiguration configuration;
 
 	@GET
 	@Path("repositories")
 	public AssetRepositoryIndex getRepositoryIndex(){
-		List<AssetRepository> emptyList = Collections.emptyList();
-		AssetRepositoryIndex index = new AssetRepositoryIndex(emptyList);
-		return index;
+		return new AssetRepositoryIndex(configuration.getRepositories());
 	}
 }

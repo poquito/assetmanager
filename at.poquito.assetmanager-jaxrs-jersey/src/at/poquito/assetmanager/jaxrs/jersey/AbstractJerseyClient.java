@@ -13,7 +13,7 @@ import at.poquito.assetmanager.util.IOUtils;
 
 import com.sun.jersey.api.client.WebResource;
 
-public abstract class AbstractJerseyClient<T> implements AssetManagerClient<T> {
+public abstract class AbstractJerseyClient<T> extends JerseyFunctionHandler implements AssetManagerClient<T> {
 	private static class RetrieveInputStream implements IFunction<WebResource, InputStream> {
 
 		@Override
@@ -21,14 +21,6 @@ public abstract class AbstractJerseyClient<T> implements AssetManagerClient<T> {
 			DataSource dataSource = resource.get(DataSource.class);
 			return IOUtils.getInputStream(dataSource);
 		}
-	}
-
-	private static ClientErrorHandler DEFAULT_ERROR_HANDLER = new JerseyErrorHandler();
-
-	private ClientErrorHandler errorHandler;
-
-	public AbstractJerseyClient() {
-		this.errorHandler = DEFAULT_ERROR_HANDLER;
 	}
 
 	protected <A> A apply(IFunction<WebResource, A> function, WebResource resource) {
@@ -40,12 +32,6 @@ public abstract class AbstractJerseyClient<T> implements AssetManagerClient<T> {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * at.poquito.assetmanager.jaxrs.jersey.AssetManagerClient#assetExists(T)
-	 */
 	@Override
 	public boolean assetExists(T path) {
 		return apply(new AssetExists(), createResource(path));
@@ -53,25 +39,11 @@ public abstract class AbstractJerseyClient<T> implements AssetManagerClient<T> {
 
 	public abstract WebResource createResource(T path);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see at.poquito.assetmanager.jaxrs.jersey.AssetManagerClient#list(T)
-	 */
 	@Override
 	public AssetIndex index(T path) {
 		return apply(new GetIndex(), createResource(path));
 	}
 
-	protected void onError(IFunction<?, ?> function, WebResource resource, Exception exception) {
-		errorHandler.onError(function, resource, exception);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see at.poquito.assetmanager.jaxrs.jersey.AssetManagerClient#remove(T)
-	 */
 	@Override
 	public void remove(T path) {
 		WebResource resource = createResource(path);
@@ -82,27 +54,11 @@ public abstract class AbstractJerseyClient<T> implements AssetManagerClient<T> {
 		return apply(new RetrieveInputStream(), createResource(path));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see at.poquito.assetmanager.jaxrs.jersey.AssetManagerClient#retrieve(T,
-	 * java.io.OutputStream)
-	 */
 	@Override
 	public void retrieve(T path, final OutputStream outputStream) {
 		apply(new RetrieveAsset(outputStream), createResource(path));
 	}
 
-	public void setErrorHandler(ClientErrorHandler errorHandler) {
-		this.errorHandler = errorHandler;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see at.poquito.assetmanager.jaxrs.jersey.AssetManagerClient#store(T,
-	 * java.io.File)
-	 */
 	@Override
 	public void store(T path, File inputFile) {
 		InputStream inputStream = IOUtils.createInputStream(inputFile);
