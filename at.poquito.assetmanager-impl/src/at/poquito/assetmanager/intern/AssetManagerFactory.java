@@ -13,13 +13,15 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.xml.bind.annotation.XmlTransient;
 
 import at.poquito.assetmanager.AssetManager;
 import at.poquito.assetmanager.AssetManagerContext;
 import at.poquito.assetmanager.AssetManagerException;
 import at.poquito.assetmanager.AssetPath;
+import at.poquito.assetmanager.AssetRepository;
 import at.poquito.assetmanager.config.AssetManagerConfiguration;
-import at.poquito.assetmanager.config.RepositoryConfiguration;
+import at.poquito.assetmanager.config.VariableResolver;
 import at.poquito.assetmanager.log.Log;
 import at.poquito.assetmanager.log.LogFactory;
 import at.poquito.assetmanager.store.FileStore;
@@ -33,10 +35,15 @@ public class AssetManagerFactory {
 	private AssetManagerConfiguration configuration;
 
 	private List<Repository> repositories;
+
+	@XmlTransient
+	private VariableResolver variableResolver;
+
 	private Log log;
 
 	protected AssetManagerFactory() {
-		log = LogFactory.create(AssetManagerFactory.class);
+		this.log = LogFactory.create(AssetManagerFactory.class);
+		this.variableResolver = new VariableResolver();
 	}
 
 	public AssetManager createAssetManager(AssetManagerContext context) {
@@ -44,9 +51,9 @@ public class AssetManagerFactory {
 	}
 
 	public List<Repository> createRepositories() {
-		List<RepositoryConfiguration> nodes = configuration.getRepositories();
+		List<AssetRepository> nodes = configuration.getRepositories();
 		List<Repository> result = new ArrayList<Repository>(nodes.size());
-		for (RepositoryConfiguration repositoryConfiguration : nodes) {
+		for (AssetRepository repositoryConfiguration : nodes) {
 			result.add(createRepository(repositoryConfiguration));
 		}
 		Collections.sort(result, new Comparator<Repository>() {
@@ -67,7 +74,7 @@ public class AssetManagerFactory {
 	}
 
 	public String resolve(String value) {
-		return configuration.resolve(value);
+		return variableResolver.resolve(value);
 	}
 
 	@PostConstruct
@@ -96,7 +103,7 @@ public class AssetManagerFactory {
 		}
 	}
 
-	Repository createRepository(RepositoryConfiguration repository) {
+	Repository createRepository(AssetRepository repository) {
 		File baseDir = new File(resolve(repository.getDir()));
 		return Repository.withName(repository.getId(), new AssetPath(resolve(repository.getPath()))).withBaseDir(baseDir)
 				.withReadPermissions(configuration.buildPermissions(repository.getReadPermissions()))

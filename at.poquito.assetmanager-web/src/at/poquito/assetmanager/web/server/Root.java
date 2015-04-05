@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import at.poquito.assetmanager.AssetTaskFactory;
 import at.poquito.assetmanager.processing.MultipartTaskCall;
 import at.poquito.assetmanager.rest.RestfulAssetManager;
+import at.poquito.assetmanager.rest.RestfulRepositoryAdmin;
 
 import com.sun.jersey.multipart.MultiPart;
 
@@ -23,11 +24,19 @@ public class Root {
 	private RestfulAssetManager assetManager;
 
 	@Inject
+	private RestfulRepositoryAdmin admin;
+	
+	@Inject
 	private AssetTaskFactory taskFactory;
 
 	@Path("/repository")
 	public RestfulAssetManager repository() {
 		return assetManager;
+	}
+	
+	@Path("/admin")
+	public RestfulRepositoryAdmin admin() {
+		return admin;
 	}
 
 	@POST
