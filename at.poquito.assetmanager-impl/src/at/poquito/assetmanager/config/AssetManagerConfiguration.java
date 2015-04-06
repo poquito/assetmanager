@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import at.poquito.assetmanager.AssetManagerException;
 import at.poquito.assetmanager.AssetRepository;
 import at.poquito.assetmanager.log.Log;
 import at.poquito.assetmanager.log.LogFactory;
@@ -37,13 +38,15 @@ public class AssetManagerConfiguration {
 		return JAXB.unmarshal(resource, AssetManagerConfiguration.class);
 	}
 
+	private String defaultRepository;
+
 	@XmlTransient
 	private Log log;
 
-	private String defaultRepository;
-
 	@XmlElement(name = "repository")
 	private List<AssetRepository> nodes;
+
+	private String adminPermission;
 
 	public AssetManagerConfiguration() {
 		log = LogFactory.create(getClass());
@@ -53,7 +56,45 @@ public class AssetManagerConfiguration {
 		if (nodes == null) {
 			nodes = new ArrayList<AssetRepository>();
 		}
+		for (AssetRepository repository : nodes) {
+			if (repository.getId().equals(repositoryConfiguration.getId())) {
+				throw new AssetManagerException("can't add repository. duplicate id:" + repositoryConfiguration.getId());
+			}
+		}
 		nodes.add(repositoryConfiguration);
+	}
+
+	public void storeRepositoryConfiguration(AssetRepository repositoryConfiguration) {
+		if (nodes == null) {
+			nodes = new ArrayList<AssetRepository>();
+		}
+		for (AssetRepository repository : nodes) {
+			if (repository.getId().equals(repositoryConfiguration.getId())) {
+				nodes.remove(repositoryConfiguration);
+			}
+		}
+		nodes.add(repositoryConfiguration);
+	}
+
+	public AssetRepository findRepository(String id) {
+		if (nodes != null) {
+			for (AssetRepository repository : nodes) {
+				if (repository.getId().equals(id)) {
+					return repository;
+				}
+			}
+		}
+		return null;
+	}
+
+	public void removeRepositoryConfiguration(AssetRepository repositoryConfiguration) {
+		if (nodes != null) {
+			for (AssetRepository repository : nodes) {
+				if (repository.getId().equals(repositoryConfiguration.getId())) {
+					nodes.remove(repositoryConfiguration);
+				}
+			}
+		}
 	}
 
 	public Permissions buildPermissions(String permissions) {
@@ -71,12 +112,29 @@ public class AssetManagerConfiguration {
 		return nodes;
 	}
 
+	public String getAdminPermission() {
+		return adminPermission;
+	}
+
 	public void writeTo(OutputStream outputStream) {
 		try {
 			JAXBContext instance = JAXBContext.newInstance(AssetManagerConfiguration.class);
 			Marshaller marshaller = instance.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			marshaller.marshal(this, outputStream);
+		} catch (PropertyException e) {
+			throw new DataBindingException(e);
+		} catch (JAXBException e) {
+			throw new DataBindingException(e);
+		}
+	}
+
+	public void writeTo(File configFile) {
+		try {
+			JAXBContext instance = JAXBContext.newInstance(AssetManagerConfiguration.class);
+			Marshaller marshaller = instance.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.marshal(this, configFile);
 		} catch (PropertyException e) {
 			throw new DataBindingException(e);
 		} catch (JAXBException e) {

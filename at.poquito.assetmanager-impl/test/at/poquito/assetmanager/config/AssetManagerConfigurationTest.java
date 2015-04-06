@@ -28,4 +28,11 @@ public class AssetManagerConfigurationTest {
 		assertThat(repositories.size(), is(1));
 	}
 
+	@Test
+	public void configuration_mustHaveAdminPersmission() {
+		URL resource = AssetManagerConfiguration.class.getResource("assetmanager.xml");
+		AssetManagerConfiguration configuration = AssetManagerConfiguration.readConfiguration(resource);
+		assertThat(configuration.getAdminPermission(), is("admin"));
+	}
+
 }

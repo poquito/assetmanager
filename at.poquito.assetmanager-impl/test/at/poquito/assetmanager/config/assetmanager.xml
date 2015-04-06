@@ -2,6 +2,8 @@
 <!DOCTYPE assetmanager>
 <assetmanager>
 
+	<adminPermission>admin</adminPermission>
+
 	<repository id="default">
 		<path>/</path>
 		<dir>${user.home}/work/mediaserver</dir>

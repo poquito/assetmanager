@@ -19,6 +19,9 @@ public class AssetRepositoryIndex {
 	@XmlElement(name = "repository")
 	private List<AssetRepository> entries;
 
+	@XmlElement(name = "readonly")
+	private boolean readonly;
+	
 	protected AssetRepositoryIndex() {
 		// tool constructor
 	}
@@ -29,6 +32,10 @@ public class AssetRepositoryIndex {
 	 */
 	public AssetRepositoryIndex(List<AssetRepository> entries) {
 		this.entries = Collections.unmodifiableList(entries);
+	}
+	
+	public void setReadonly(boolean readonly) {
+		this.readonly = readonly;
 	}
 
 	/**
