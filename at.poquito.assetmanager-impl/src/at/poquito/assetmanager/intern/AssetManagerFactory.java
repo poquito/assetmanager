@@ -33,7 +33,7 @@ public class AssetManagerFactory {
 	protected AssetManagerFactory(AssetManagerConfiguration configuration) {
 		this.configuration = configuration;
 		this.variableResolver = new VariableResolver();
-		createRepositories();
+		repositories = createRepositories();
 		logConfigurationInfo(log);
 	}
 

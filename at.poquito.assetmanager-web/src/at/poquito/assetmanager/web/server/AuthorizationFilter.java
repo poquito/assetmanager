@@ -1,10 +1,8 @@
 package at.poquito.assetmanager.web.server;
 
 import java.io.IOException;
-import java.util.Set;
+import java.util.logging.Logger;
 
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,6 +17,7 @@ import at.poquito.assetmanager.intern.AssetManagerContextFactory;
 
 @WebFilter("/api/*")
 public class AuthorizationFilter implements Filter {
+	private static final Logger LOG = Logger.getLogger(AuthorizationFilter.class.getName());
 
 	@Inject
 	private AssetManagerContextFactory contextFactory;
@@ -36,9 +35,8 @@ public class AuthorizationFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-
+	public void init(FilterConfig filterConfig) throws ServletException {
+		LOG.info("assetmanager authorization filter initialized");
 	}
 
 }
