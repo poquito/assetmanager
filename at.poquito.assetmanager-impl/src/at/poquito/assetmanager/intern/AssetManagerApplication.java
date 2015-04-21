@@ -1,5 +1,6 @@
 package at.poquito.assetmanager.intern;
 
+import java.io.File;
 import java.net.URI;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -59,11 +60,23 @@ public class AssetManagerApplication {
 	}
 
 	private ConfigStore createConfigStore() {
-		String property = System.getProperty("assetmanager.configURL");
-		if (property == null) {
+		File configFile = evaluateConfigFile();
+		if (configFile == null) {
 			return new ConfigStore();
 		}
-		return new FileConfigStore(URI.create(property));
+		return new FileConfigStore(configFile);
+	}
+
+	private File evaluateConfigFile() {
+		String property = System.getProperty("assetmanager.configFile");
+		if (property == null) {
+			property = System.getProperty("assetmanager.configURL");
+			if (property == null) {
+				return null;
+			}
+			return new File(URI.create(property));
+		}
+		return new File(property);
 	}
 
 	private boolean mustLoadConfiguration() {

@@ -1,7 +1,6 @@
 package at.poquito.assetmanager.config;
 
 import java.io.File;
-import java.net.URI;
 
 import at.poquito.assetmanager.AssetManagerException;
 
@@ -15,8 +14,8 @@ public class FileConfigStore extends ConfigStore {
 
 	private long cacheUntil;
 
-	public FileConfigStore(URI configURI) {
-		configFile = new File(configURI);
+	public FileConfigStore(File configFile) {
+		this.configFile = configFile;
 	}
 
 	@Override
