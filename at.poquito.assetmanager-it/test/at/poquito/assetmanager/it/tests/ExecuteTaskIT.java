@@ -1,7 +1,7 @@
 package at.poquito.assetmanager.it.tests;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.util.Properties;
@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import at.poquito.assetmanager.AssetPath;
 import at.poquito.assetmanager.AssetTask;
-import at.poquito.assetmanager.it.tasks.HelloWorld;
 import at.poquito.assetmanager.jaxrs.jersey.JerseyTaskManager;
 import at.poquito.assetmanager.util.IOUtils;
 

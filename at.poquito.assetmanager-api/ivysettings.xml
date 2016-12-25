@@ -1,0 +1,59 @@
+<!--
+	this sample configuration is used for developing on at.poquito code.
+	
+	the resovlver chain 'poquito.resolver' retrieves all local at.poquito artifacts and remote releases from the at.poquito organisation.
+	
+	the resovlver chain 'default.resolver' retrieves all other local and remote artifacts from other organisations.
+		  
+-->
+<ivysettings>
+	<property name="ivy.dir" value="${user.home}/.ivy2" override="false"/>
+	<property name="cache.dir" value="${ivy.dir}/caches" override="false"/>
+	<property name="repository.dir" value="${ivy.dir}/repositories" override="false"/>
+	<property name="repository.pattern" value="[organisation]/[module]/[revision]/[type]s" override="false" />
+
+	<settings defaultResolver="default.resolver" />
+	
+	<caches default="local" defaultCacheDir="${cache.dir}/local">
+		<cache name="remote" basedir="${cache.dir}/remote" defaultTTL="1d"/>
+		<cache name="poquito" basedir="${cache.dir}/poquito" defaultTTL="1s"/>
+		<cache name="local" basedir="${cache.dir}/local" useOrigin="true" defaultTTL="1d"/>
+	</caches>
+	
+	<resolvers>
+		<ibiblio name="ibiblio" m2compatible="true" cache="remote"/>
+		
+		<filesystem name="local">
+			<ivy pattern="${repository.dir}/local/${repository.pattern}/ivy.xml" />
+			<artifact pattern="${repository.dir}/local/${repository.pattern}/[artifact].[ext]" />
+		</filesystem>
+
+		<filesystem name="shared">
+			<ivy pattern="${repository.dir}/shared/${repository.pattern}/ivy.xml" />
+			<artifact pattern="${repository.dir}/shared/${repository.pattern}/[artifact].[ext]" />
+		</filesystem>
+				
+		<url name="release" cache="poquito" m2compatible="true">
+			<!-- release repository has maven layout, do not use repository.pattern! -->
+			<ivy pattern="http://poquito.at/ivyrepo/release/[organisation]/[module]/[revision]/ivy.xml" />
+			<artifact pattern="http://poquito.at/ivyrepo/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+		</url>
+		
+		<chain name="poquito.resolver">
+			<resolver ref="local" />
+			<resolver ref="release" />
+		</chain>
+		
+		<chain name="default.resolver">
+			<resolver ref="local" />
+			<resolver ref="ibiblio" />
+		</chain>
+
+	</resolvers>
+	
+	<modules>
+		<module organisation="at.poquito.archetype" resolver="poquito.resolver"/>
+		<module organisation="at.poquito.assetmanager" resolver="poquito.resolver"/>
+	</modules>
+	
+</ivysettings>

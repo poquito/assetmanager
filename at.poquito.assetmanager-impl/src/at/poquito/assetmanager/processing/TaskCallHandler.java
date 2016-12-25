@@ -1,13 +1,8 @@
 package at.poquito.assetmanager.processing;
 
-import java.io.Closeable;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,36 +16,23 @@ import at.poquito.assetmanager.AssetStream;
 import at.poquito.assetmanager.AssetTask;
 import at.poquito.assetmanager.AssetTaskFactory;
 
-import com.sun.jersey.core.header.ContentDisposition;
-import com.sun.jersey.multipart.BodyPart;
-import com.sun.jersey.multipart.BodyPartEntity;
-import com.sun.jersey.multipart.MultiPart;
-
-public class MultipartTaskCall {
+public class TaskCallHandler {
 
 	private AssetTaskFactory taskFactory;
-	private MultiPart multiPart;
-	private List<Closeable> resources;
+	private TaskCallParams params;
 
-	public MultipartTaskCall(AssetTaskFactory taskFactory, MultiPart multiPart) {
+	public TaskCallHandler(AssetTaskFactory taskFactory, TaskCallParams taskCallParams ) {
 		this.taskFactory = taskFactory;
-		this.multiPart = multiPart;
-		this.resources = new ArrayList<Closeable>();
+		this.params = taskCallParams;
 	}
 
 	public Response execute() {
-		Iterator<BodyPart> iterator = multiPart.getBodyParts().iterator();
-		TaskCallParams params = iterator.next().getEntityAs(TaskCallParams.class);
 		String taskName = params.getTaskName();
 		AssetTask call = taskFactory.create(taskName);
 		call.setProperties(params.getProperties());
 		call.setCorrelationId(params.getCorrelationId());
 		call.setSource(params.getSource());
 		call.setDestination(params.getDestination());
-		while (iterator.hasNext()) {
-			BodyPart part = iterator.next();
-			addAttachment(call, part);
-		}
 		try {
 			Object o = call.execute(TaskResult.class);
 			if (o == null) {
@@ -78,38 +60,8 @@ public class MultipartTaskCall {
 			log.log(Level.WARNING, msg, e);
 			ResponseBuilder builder = Response.serverError().entity(msg);
 			return builder.build();
-		} finally {
-			closeResources();
 		}
 
 	}
 
-	private void closeResources() {
-		for (Closeable closeable : resources) {
-			try {
-				closeable.close();
-			} catch (IOException e) {
-				// ignore
-			}
-		}
-	}
-
-	private void addAttachment(AssetTask call, BodyPart part) {
-		String name = getAttachmentName(part);
-		InputStream inputStream = getInputStream(part);
-		resources.add(inputStream);
-		call.addAttachment(name, inputStream);
-	}
-
-	private InputStream getInputStream(BodyPart part) {
-		BodyPartEntity entity = (BodyPartEntity) part.getEntity();
-		InputStream inputStream = entity.getInputStream();
-		return inputStream;
-	}
-
-	private String getAttachmentName(BodyPart part) {
-		ContentDisposition contentDisposition = part.getContentDisposition();
-		String name = contentDisposition.getParameters().get("name");
-		return name;
-	}
 }

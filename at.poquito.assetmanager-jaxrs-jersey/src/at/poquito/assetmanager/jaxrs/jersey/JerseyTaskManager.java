@@ -5,17 +5,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
 
+import javax.ws.rs.core.MediaType;
+
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.header.ContentDisposition;
+
 import at.poquito.assetmanager.AssetManagerException;
 import at.poquito.assetmanager.AssetStream;
 import at.poquito.assetmanager.AssetTask;
 import at.poquito.assetmanager.processing.TaskCallParams;
 import at.poquito.assetmanager.util.CopyStream;
 import at.poquito.assetmanager.util.IOUtils;
-
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.header.ContentDisposition;
-import com.sun.jersey.multipart.MultiPart;
 
 public class JerseyTaskManager {
 
@@ -26,8 +27,8 @@ public class JerseyTaskManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <R> R executeTask(MultiPart multiPart, Class<R> resultType) {
-		final ClientResponse response = base.path("/executeTask").type("multipart/mixed").post(ClientResponse.class, multiPart);
+	public <R> R executeTask(TaskCallParams params, Class<R> resultType) {
+		final ClientResponse response = base.path("/executeTask").type(MediaType.APPLICATION_XML_TYPE).post(ClientResponse.class, params);
 		if (response.getStatus() == 200) {
 			if (resultType == null) {
 				return null;
@@ -41,7 +42,7 @@ public class JerseyTaskManager {
 		if (response.hasEntity()) {
 			throw new AssetManagerException(response.getEntity(String.class));
 		}
-		throw new AssetManagerException("task execution failed");
+		throw new AssetManagerException("task execution failed:" + response.getStatus());
 	}
 
 	private String getFileNameFromResponse(final ClientResponse response) {

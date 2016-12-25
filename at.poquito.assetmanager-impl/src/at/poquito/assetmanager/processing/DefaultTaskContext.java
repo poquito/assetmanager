@@ -1,13 +1,10 @@
 package at.poquito.assetmanager.processing;
 
-import java.util.List;
 import java.util.Properties;
 
 import at.poquito.assetmanager.Asset;
-import at.poquito.assetmanager.AssetStream;
 
 public class DefaultTaskContext implements TaskContext {
-	private List<AssetStream> attachments;
 	private String correlationId;
 	private Asset destinationAsset;
 	private Properties properties;
@@ -23,14 +20,6 @@ public class DefaultTaskContext implements TaskContext {
 		this.destinationAsset = task.getDestination();
 		this.properties = task.getProperties();
 		this.sourceAsset = task.getSource();
-		this.attachments = task.getAttachments();
-	}
-
-	/**
-	 * @return the attachments
-	 */
-	public List<AssetStream> getAttachments() {
-		return attachments;
 	}
 
 	/**

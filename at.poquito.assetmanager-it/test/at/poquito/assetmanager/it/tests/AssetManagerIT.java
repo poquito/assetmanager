@@ -18,7 +18,9 @@ import com.sun.jersey.api.client.WebResource;
 
 public class AssetManagerIT {
 
-	private static final String REPOSITORY_URL = "http://localhost:8080/assetmanager/api/repository";
+	//private static final String REPOSITORY_URL = "http://localhost:8080/assetmanager/api/repository";
+	private static final String REPOSITORY_URL = "http://localhost:8080/at.poquito.assetmanager-it/api/repository";
+	private static final String TASKMANAGER_URL = "http://localhost:13846/at.poquito.assetmanager-it/api";
 
 	static final String ASSETMANAGER_TEST_FILE_CONTENT = "ASSETMANAGER TEST FILE";
 
@@ -43,8 +45,7 @@ public class AssetManagerIT {
 	}
 
 	public static JerseyTaskManager createTaskManager() {
-		String mediaServerURL = "http://localhost:8080/assetmanager/api";
-		WebResource base = Client.create().resource(mediaServerURL);
+		WebResource base = Client.create().resource(TASKMANAGER_URL);
 		JerseyTaskManager taskManager = new JerseyTaskManager(base);
 		return taskManager;
 	}
@@ -64,7 +65,7 @@ public class AssetManagerIT {
 
 	public static File getAssetManagerDir() {
 		File userHome = new File(System.getProperty("user.home"));
-		File assetmanagerDir = new File(userHome, "work/assetmanager");
+		File assetmanagerDir = new File(userHome, "assetmanager");
 		if (!assetmanagerDir.exists()) {
 			assetmanagerDir.mkdirs();
 		}

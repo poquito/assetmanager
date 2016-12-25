@@ -14,7 +14,6 @@ public class DefaultTaskCallTest {
 			public <R> R execute(DefaultAssetTask task, Class<R> resultType) {
 				assertThat(task.getTaskName(), is("sampleTask"));
 				assertThat(task.getProperties(), notNullValue());
-				assertThat(task.getAttachments(), notNullValue());
 				return null;
 			}
 		};
@@ -22,7 +21,6 @@ public class DefaultTaskCallTest {
 		call.setCorrelationId(null);
 		call.setDestination(null);
 		call.setSource(null);
-		call.addAttachment(null);
 		call.execute(String.class);
 	}
 
