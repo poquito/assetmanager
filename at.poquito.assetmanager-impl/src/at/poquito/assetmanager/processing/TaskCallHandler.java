@@ -52,8 +52,10 @@ public class TaskCallHandler {
 				return Response.ok(output).type(MediaType.APPLICATION_OCTET_STREAM_TYPE).header("Content-Disposition", contentDisposition)
 						.build();
 			}
-			ResponseBuilder builder = Response.ok(o);
-			return builder.build();
+			if(o instanceof String){
+				return Response.ok(o, MediaType.TEXT_PLAIN).build();
+			}
+			return Response.ok(o, MediaType.APPLICATION_XML).build();
 		} catch (RuntimeException e) {
 			Logger log = Logger.getLogger(TaskManager.class.getName());
 			String msg = MessageFormat.format("execution of task {0} failed:{1}", taskName, e.getMessage());
