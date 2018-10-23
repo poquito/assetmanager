@@ -173,7 +173,7 @@ public class Repository implements Comparable<Repository> {
 			log.info("requested directory not found %s", dir.getAbsolutePath());
 			return;
 		}
-		int length = dir.getAbsolutePath().length();
+		int length = dir.getAbsolutePath().length() + 1;
 		if (dir.isDirectory()) {
 			File[] files = dir.listFiles();
 			for (File file : files) {
