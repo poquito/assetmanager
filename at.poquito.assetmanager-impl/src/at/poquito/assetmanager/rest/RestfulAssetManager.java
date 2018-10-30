@@ -91,8 +91,9 @@ public class RestfulAssetManager {
 
 	public Response handleGet(String path) {
 		final AssetPath assetPath = new AssetPath(path);
-		if (assetPath.isDirectory()) {
-			return getIndex(assetPath);
+		Asset asset = assetManager.findAsset(assetPath);
+		if (asset == null) {
+			throw new AssetNotFoundException(path);
 		}
 		return retrieve(assetPath);
 	}
@@ -101,8 +102,7 @@ public class RestfulAssetManager {
 		Asset asset = assetManager.getAsset(assetPath);
 		final File file = asset.getFile();
 		if (file.isDirectory()) {
-			URI uri = URI.create(request.getRequestURL() + "/");
-			return Response.status(Status.SEE_OTHER).location(uri).build();
+			return getIndex(assetPath);
 		}
 
 		StreamingOutput output = new StreamingOutput() {
