@@ -6,12 +6,13 @@ import java.io.OutputStream;
 
 import javax.activation.DataSource;
 
+import com.sun.jersey.api.client.WebResource;
+
 import at.poquito.assetmanager.AssetIndex;
+import at.poquito.assetmanager.AssetPath;
 import at.poquito.assetmanager.client.AssetManagerClient;
 import at.poquito.assetmanager.util.IFunction;
 import at.poquito.assetmanager.util.IOUtils;
-
-import com.sun.jersey.api.client.WebResource;
 
 public abstract class AbstractJerseyClient<T> extends JerseyFunctionHandler implements AssetManagerClient<T> {
 	private static class RetrieveInputStream implements IFunction<WebResource, InputStream> {
@@ -74,6 +75,12 @@ public abstract class AbstractJerseyClient<T> extends JerseyFunctionHandler impl
 		apply(new StoreAsset(inputStream), createResource(path));
 	}
 
+	@Override
+	public void copy(T source, AssetPath destination) {
+		apply(new CopyAsset(destination), createResource(source));
+	}
+
+	
 	@Override
 	public <R> R apply(T path, IFunction<InputStream, R> function) {
 		return apply(Apply.forFunction(function), createResource(path));

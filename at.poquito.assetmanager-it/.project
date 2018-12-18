@@ -4,7 +4,6 @@
 	<comment></comment>
 	<projects>
 		<project>at.poquito.assetmanager-api</project>
-		<project>at.poquito.assetmanager-jaxrs-jersey</project>
 		<project>at.poquito.assetmanager-impl</project>
 	</projects>
 	<buildSpec>

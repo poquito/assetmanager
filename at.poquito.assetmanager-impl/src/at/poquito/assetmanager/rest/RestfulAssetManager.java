@@ -14,6 +14,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HEAD;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -36,6 +37,7 @@ import at.poquito.assetmanager.util.CopyStream;
 import at.poquito.assetmanager.util.IOUtils;
 
 public class RestfulAssetManager {
+	public static final String X_ASSETMANAGER_COPY_DESTINATION = "x-assetmanager-copy-destination";
 
 	@Inject
 	private AssetManager assetManager;
@@ -78,16 +80,23 @@ public class RestfulAssetManager {
 	@PUT
 	@Path("{path:.*}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
-	public void store(@PathParam("path") String path, InputStream inputStream) {
+	public void store(@PathParam("path") String path,
+			@HeaderParam(X_ASSETMANAGER_COPY_DESTINATION) String destinationPath, InputStream inputStream) {
 		AssetPath assetPath = new AssetPath(path);
-		assetManager.store(assetPath, inputStream);
-		beanManager.fireEvent(new AssetStored(assetPath));
+		if (destinationPath == null) {
+			assetManager.store(assetPath, inputStream);
+			beanManager.fireEvent(new AssetStored(assetPath));
+		} else {
+			AssetPath destination = new AssetPath(destinationPath);
+			assetManager.copy(assetPath, destination);
+			beanManager.fireEvent(destinationPath);
+		}
 	}
 
-	@GET
-	public Response getRoot() {
-		return handleGet("/");
-	}
+//	@GET
+//	public Response getRoot() {
+//		return handleGet("/");
+//	}
 
 	public Response handleGet(String path) {
 		final AssetPath assetPath = new AssetPath(path);

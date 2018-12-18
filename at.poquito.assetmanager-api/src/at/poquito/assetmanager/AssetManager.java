@@ -19,6 +19,8 @@ public interface AssetManager {
 
 	void store(AssetPath path, File inputFile);
 
+	void copy(AssetPath path, AssetPath destination);
+	
 	void remove(AssetPath path);
 
 	List<AssetPath> list(AssetPath assetPath);

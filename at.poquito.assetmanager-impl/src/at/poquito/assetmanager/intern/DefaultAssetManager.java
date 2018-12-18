@@ -1,6 +1,9 @@
 package at.poquito.assetmanager.intern;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -51,6 +54,11 @@ public class DefaultAssetManager implements AssetManager {
 		selectRepository(path).store(context, path, inputStream);
 	}
 
+	@Override
+	public void copy(AssetPath path, AssetPath destination) {
+		store(destination, getAsset(path).getFile());
+	}
+
 	Repository selectRepository(AssetPath path) {
 		for (Repository repository : repositories) {
 			if (repository.accepts(path)) {
@@ -67,9 +75,15 @@ public class DefaultAssetManager implements AssetManager {
 
 	@Override
 	public void store(AssetPath path, File inputFile) {
-		throw new UnsupportedOperationException("store");
+		try (InputStream is = new FileInputStream(inputFile)) {
+			store(path, is);
+		} catch (FileNotFoundException e) {
+			throw new AssetManagerException("input file does not exist :" + inputFile.getPath());
+		} catch (IOException e) {
+			throw new AssetManagerException("could not store file:" + inputFile.getPath(), e);
+		}
 	}
-	
+
 	public Asset getAsset(AssetPath path, boolean create) {
 		Repository repository = selectRepository(path);
 		if (!repository.hasReadPermissions(context)) {
@@ -81,7 +95,6 @@ public class DefaultAssetManager implements AssetManager {
 		}
 		throw new AssetNotFoundException(path);
 	}
-	
 
 	@Override
 	public Asset findAsset(AssetPath path) {

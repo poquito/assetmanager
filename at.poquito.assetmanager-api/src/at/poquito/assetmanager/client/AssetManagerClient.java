@@ -6,6 +6,7 @@ import java.io.OutputStream;
 
 import at.poquito.assetmanager.AssetIndex;
 import at.poquito.assetmanager.AssetManagerException;
+import at.poquito.assetmanager.AssetPath;
 import at.poquito.assetmanager.security.NotAuthorizedException;
 import at.poquito.assetmanager.util.IFunction;
 
@@ -146,5 +147,7 @@ public interface AssetManagerClient<T> {
 	 *             if the client has no write permission for the repository.
 	 */
 	void store(T path, InputStream inputStream);
+	
+	void copy(T source, AssetPath destination);
 
 }

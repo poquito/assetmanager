@@ -2,7 +2,10 @@
     <wb-module deploy-name="at.poquito.assetmanager-web">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <dependent-module archiveName="at.poquito.assetmanager-jaxrs-jersey.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/at.poquito.assetmanager-jaxrs-jersey/at.poquito.assetmanager-jaxrs-jersey">
+        <dependent-module archiveName="at.poquito.assetmanager-api.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/at.poquito.assetmanager-api/at.poquito.assetmanager-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="at.poquito.assetmanager-impl.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/at.poquito.assetmanager-impl/at.poquito.assetmanager-impl">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="assetmanager"/>

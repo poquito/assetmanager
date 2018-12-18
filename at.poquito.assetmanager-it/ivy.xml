@@ -6,7 +6,7 @@
         organisation="at.poquito.assetmanager"
         module="assetmanager-it"
         status="integration"
-        revision="1.3.0"
+        revision="1.4.0"
         >
         <extends organisation="at.poquito.archetype" module="simple-jar-with-junit" revision="1.0+"/>
 	</info>
@@ -18,8 +18,8 @@
 	</publications>
 	
 	<dependencies>
-		<dependency org="at.poquito.assetmanager" name="assetmanager-impl" rev="0.4.+" conf="war-lib->master;compile,provided->@"/>
-		<dependency org="at.poquito.assetmanager" name="assetmanager-jaxrs-client" rev="0.4.+" conf="war-lib->master;compile,provided->@"/>
+		<dependency org="at.poquito.assetmanager" name="assetmanager-impl" rev="0.5.+" conf="war-lib->master;compile,provided->@"/>
+		<dependency org="at.poquito.assetmanager" name="assetmanager-jaxrs-client" rev="0.5.+" conf="war-lib->master;compile,provided->@"/>
 		<!--
 		<dependency org="javax" name="javaee-api" rev="7.0" conf="provided->default"/>
 		-->
