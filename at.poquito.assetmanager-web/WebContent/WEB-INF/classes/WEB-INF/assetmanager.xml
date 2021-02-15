@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE assetmanager>
+<assetmanager>
+
+	<repository id="default">
+		<path>/</path>
+		<dir>${user.home}/work/assetmanager</dir>
+		<readPermissions>*</readPermissions>
+		<writePermissions>*</writePermissions>
+	</repository>
+
+	<repository id="public">
+		<path>/public</path>
+		<dir>${user.home}/work/assetmanager/readonly</dir>
+		<readPermissions>*</readPermissions>
+	</repository>
+
+	<repository id="admin">
+		<path>/admin</path>
+		<dir>${user.home}/work/assetmanager/adm</dir>
+		<readPermissions>admin</readPermissions>
+		<writePermissions>admin</writePermissions>
+	</repository>
+
+</assetmanager>
