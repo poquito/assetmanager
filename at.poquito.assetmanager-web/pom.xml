@@ -16,18 +16,30 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>WebContent</directory>
-			</resource>
-		</resources>
+		 <resources>
+            <resource>
+                <directory>WebContent</directory>
+                <excludes>
+                    <exclude>**</exclude>
+                </excludes>
+            </resource>
+        </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.3.1</version>
 				<configuration>
-					<webappDirectory>WebContent</webappDirectory>
+				<webResources>
+					<resource>
+						<directory>WebContent</directory>
+		                <excludes>
+							<exclude>classes/**</exclude>
+						</excludes>
+						</resource>
+				</webResources>
+
+					<warSourceDirectory>WebContent</warSourceDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
