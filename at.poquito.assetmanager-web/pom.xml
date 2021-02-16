@@ -48,23 +48,18 @@
 	<dependencies>
 		<dependency>
 			<groupId>at.poquito.assetmanager</groupId>
+			<artifactId>assetmanager-api</artifactId>
+			<version>${at.poquito.assetmanager.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>at.poquito.assetmanager</groupId>
 			<artifactId>assetmanager-impl</artifactId>
 			<version>${at.poquito.assetmanager.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-core</artifactId>
-			<version>1.11</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>1.11</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.jersey.contribs</groupId>
-			<artifactId>jersey-multipart</artifactId>
-			<version>1.11</version>
+			<version>1.17</version>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
