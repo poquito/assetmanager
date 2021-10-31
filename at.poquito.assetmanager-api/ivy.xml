@@ -6,7 +6,7 @@
         organisation="at.poquito.assetmanager"
         module="assetmanager-api"
         status="release"
-        revision="0.5.0"
+        revision="0.5.1"
         >
         <extends organisation="at.poquito.archetype" module="simple-jar-with-junit" revision="1.0+"/>
 	</info>

@@ -31,10 +31,10 @@ public class CopyStream {
 
 	public void toFile(File file) throws IOException {
 		FileOutputStream outputStream = new FileOutputStream(file);
-
 		try {
 			toStream(outputStream);
 		} finally {
+			outputStream.getFD().sync();
 			outputStream.close();
 		}
 	}
